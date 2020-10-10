@@ -31,3 +31,13 @@ To execute impdp/expdp just use docker exec command:
 ```sh
 docker exec -it oracle11g impdp ..
 ```
+
+# Other
+If the dbca creating database task was halted at 76%, the reason perhaps is insufficient shm-object space. For more detail you can refer to [this site](https://www.codetd.com/article/7627695) .
+
+Solution: Execute the following shell code before creating database task.
+
+```sh
+echo "tmpfs /dev/shm tmpfs defaults,size=1g 0 0" >> /etc/fstab
+mount -o remount /dev/shm
+```
